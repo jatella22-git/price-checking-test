@@ -1,0 +1,26 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/pricetracker
+    username: user
+    password: 
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate.format_sql: true
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: tracker
+      auto-offset-reset: latest
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    properties:
+      spring.json.trusted.packages: "*"
+
+springdoc:
+  swagger-ui.path: /swagger
