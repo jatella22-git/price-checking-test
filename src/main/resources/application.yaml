@@ -4,24 +4,29 @@ server:
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/pricetracker
-    username: user
-    password: pass
+    username: priceuser
+    password: pricepass
   jpa:
     hibernate:
       ddl-auto: update
     properties:
       hibernate.format_sql: true
     show-sql: true
+    
   kafka:
     bootstrap-servers: localhost:9092
     consumer:
       group-id: tracker
       auto-offset-reset: latest
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.add.type.headers: true
     properties:
-      spring.json.trusted.packages: "*"
+      spring.json.trusted.packages: com.example.pricetracker
+      spring.json.value.default.type: com.example.pricetracker.app.PriceDropPublisher$PriceDropEvent
 
 springdoc:
   swagger-ui.path: /swagger
