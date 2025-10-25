@@ -5,7 +5,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/pricetracker
     username: user
-    password: 
+    password: pass
   jpa:
     hibernate:
       ddl-auto: update
